@@ -1,0 +1,12 @@
+{
+  "name": "conwordy",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "repository": "https://github.com/frauschert/conwordy",
+  "author": "Fabian Rauschert",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
