@@ -1,12 +1,12 @@
 export const mass = {
     mg: {
-        scale: 1
+        scale: 1e6
     },
     g: {
-        scale: 1e-3
+        scale: 1e3
     },
     kg: {
-        scale: 1e-6
+        scale: 1
     }
 }
 

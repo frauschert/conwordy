@@ -1,15 +1,15 @@
 export const length = {
     mm: {
-        scale: 1
+        scale: 1e3
     },
     cm: {
-        scale: 1e-1
+        scale: 1e2
     },
     m: {
-        scale: 1e-3
+        scale: 1
     },
     km: {
-        scale: 1e-6
+        scale: 1e-3
     }
 }
 
