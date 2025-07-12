@@ -1,18 +1,44 @@
-import { length, Length } from './length';
-import { mass, Mass } from './mass';
-import { velocity, Velocity } from './velocity';
-import { time, Time } from './time';
+import type { UnitsByCategory, Category } from "./types";
+import { convertLength } from "./length";
+import { convertMass } from "./mass";
+import { convertTemperature } from "./temperature";
+import { applyRounding, RoundingMethod } from "./rounding";
+import { convertTime } from "./time";
+import { convertVelocity } from "./velocity";
 
-const units = { ...length, ...mass, ...velocity, ...time }
-
-type Unit = keyof typeof units;
-
-export function convert(value: number, source: Velocity, target: Velocity): number;
-export function convert(value: number, source: Mass, target: Mass): number;
-export function convert(value: number, source: Length, target: Length): number;
-export function convert(value: number, source: Time, target: Time): number;
-export function convert(value: number, source: Unit, target: Unit): number {
-    return value / units[source].scale * units[target].scale;
+interface ConvertOptions {
+  precision?: number;
+  rounding?: RoundingMethod;
 }
 
-export default convert;
+const converters: Record<Category, Function> = {
+  length: convertLength,
+  mass: convertMass,
+  temperature: convertTemperature,
+  time: convertTime,
+  velocity: convertVelocity,
+};
+
+export function convert<C extends Category>(
+  value: number,
+  category: C,
+  options: ConvertOptions = {}
+) {
+  return {
+    from<From extends UnitsByCategory[C]>(fromUnit: From) {
+      return {
+        to<To extends Exclude<UnitsByCategory[C], From>>(toUnit: To): number {
+          const converter = converters[category];
+          if (!converter) {
+            throw new Error(`Unsupported category: ${category}`);
+          }
+          let result = converter(value, fromUnit, toUnit);
+          if (options.precision !== undefined) {
+            result = applyRounding(result, options.precision, options.rounding);
+          }
+          return result;
+        },
+      };
+    },
+  };
+}

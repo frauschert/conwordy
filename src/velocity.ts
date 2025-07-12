@@ -1,20 +1,17 @@
-export const velocity = {
-    // SI base unit
-    "m/s": {
-        scale: 1
-    },
-    // Common units
-    "km/h": {
-        scale: 3.6
-    },
-    // Maritime
-    "kn": {
-        scale: 1.944
-    },
-    // Imperial
-    "mph": {
-        scale: 2.237
-    }
-}
+const velocityConversionFactors = {
+  meter_per_second: 1,
+  kilometer_per_hour: 0.277778,
+  mile_per_hour: 0.44704,
+  foot_per_second: 0.3048,
+  knot: 0.514444,
+} as const satisfies Record<string, number>;
 
-export type Velocity = keyof typeof velocity;
+export type VelocityUnit = keyof typeof velocityConversionFactors;
+export function convertVelocity(
+  value: number,
+  from: VelocityUnit,
+  to: VelocityUnit
+): number {
+  const valueInMetersPerSecond = value * velocityConversionFactors[from];
+  return valueInMetersPerSecond / velocityConversionFactors[to];
+}
