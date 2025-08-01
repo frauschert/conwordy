@@ -1,0 +1,208 @@
+# Feature Implementation Guidelines
+
+## Current Priority Features
+
+Based on [cursor.md](mdc:cursor.md), implement features in this order:
+
+### 1. Unit Validation & Discovery
+
+**API Design:**
+
+```typescript
+// Check if a unit exists
+convert.isValidUnit('length', 'meter'); // true
+convert.isValidUnit('mass', 'invalid'); // false
+
+// Get all available units for a category
+convert.getUnits('length'); // ['meter', 'kilometer', 'mile', ...]
+
+// Get conversion factors
+convert.getConversionFactor('length', 'meter', 'kilometer'); // 0.001
+```
+
+**Implementation Steps:**
+
+1. Add validation functions to [src/convert.ts](mdc:src/convert.ts)
+2. Create unit discovery utilities
+3. Add tests to [src/convert.test.ts](mdc:src/convert.test.ts)
+4. Update [src/index.ts](mdc:src/index.ts) exports
+
+### 2. Bulk Conversions
+
+**API Design:**
+
+```typescript
+// Convert multiple values at once
+const results = convert.bulk(
+  [
+    { value: 100, from: 'm', to: 'km' },
+    { value: 50, from: 'g', to: 'kg' },
+    { value: 25, from: 'c', to: 'f' },
+  ],
+  { precision: 2 }
+);
+```
+
+**Implementation Steps:**
+
+1. Add bulk conversion method to [src/convert.ts](mdc:src/convert.ts)
+2. Support array of conversion objects
+3. Add batch processing optimization
+4. Add comprehensive tests
+
+### 3. Better Error Messages
+
+**Requirements:**
+
+- More descriptive error messages
+- Suggestions for similar units
+- Category-specific error handling
+- Type-safe error types
+
+**Implementation Steps:**
+
+1. Create custom error classes
+2. Add unit similarity detection
+3. Improve error messages in [src/convert.ts](mdc:src/convert.ts)
+4. Add error scenario tests
+
+### 4. Smart Unit Detection
+
+**API Design:**
+
+```typescript
+// Parse units from strings
+convert.parse('100 km/h'); // { value: 100, unit: 'kph' }
+convert.parse('25°C'); // { value: 25, unit: 'celsius' }
+convert.parse('5.2 lbs'); // { value: 5.2, unit: 'pound' }
+```
+
+**Implementation Steps:**
+
+1. Create parsing utilities
+2. Add regex patterns for common formats
+3. Support natural language parsing
+4. Add comprehensive tests
+
+## Implementation Guidelines
+
+### Type Safety
+
+- All new features must maintain full TypeScript type safety
+- Use the existing alias system from [src/aliases.ts](mdc:src/aliases.ts)
+- Leverage conditional types for category-specific logic
+- Test type safety thoroughly
+
+### API Design
+
+- Follow the existing fluent API pattern
+- Maintain backward compatibility
+- Keep the API simple and intuitive
+- Document all new functions with JSDoc
+
+### Testing Strategy
+
+- Add unit tests for each new function
+- Test edge cases and error scenarios
+- Test type safety in error conditions
+- Add integration tests for complex features
+
+### Code Organization
+
+- Add new utilities to appropriate files
+- Update [src/index.ts](mdc:src/index.ts) for public exports
+- Follow existing naming conventions
+- Use Prettier formatting
+
+### Error Handling
+
+- Create descriptive error messages
+- Include suggestions for similar units
+- Maintain type safety in error scenarios
+- Test error conditions thoroughly
+
+## File Structure for New Features
+
+### Validation Features
+
+- Add to [src/convert.ts](mdc:src/convert.ts) as static methods
+- Create validation utilities if needed
+- Update types in [src/types.ts](mdc:src/types.ts) if necessary
+
+### Bulk Features
+
+- Add to [src/convert.ts](mdc:src/convert.ts) as instance methods
+- Consider performance optimizations
+- Add batch processing utilities
+
+### Parsing Features
+
+- Create new file: `src/parsing.ts`
+- Add parsing utilities and regex patterns
+- Update [src/index.ts](mdc:src/index.ts) exports
+
+### Error Handling
+
+- Create new file: `src/errors.ts`
+- Define custom error classes
+- Add error utilities and suggestions
+
+## Testing Requirements
+
+### Unit Tests
+
+- Test each new function individually
+- Test both positive and negative cases
+- Test edge cases and boundary conditions
+- Test type safety in error scenarios
+
+### Integration Tests
+
+- Test features work together
+- Test with existing alias system
+- Test error handling across features
+- Test performance with large datasets
+
+### Type Tests
+
+- Test that types work as expected
+- Test conditional types and generics
+- Test type safety in error scenarios
+- Use TypeScript's type checking
+
+## Documentation
+
+### JSDoc Comments
+
+- Add comprehensive JSDoc for all public APIs
+- Include examples in comments
+- Document error conditions
+- Include type information
+
+### README Updates
+
+- Update [README.md](mdc:README.md) with new features
+- Add usage examples
+- Document API changes
+- Include migration guide if needed
+
+## Performance Considerations
+
+### Optimization
+
+- Consider memoization for repeated operations
+- Optimize bulk operations for large datasets
+- Use efficient algorithms for parsing
+- Consider lazy evaluation where appropriate
+
+### Memory Usage
+
+- Avoid unnecessary object creation
+- Use efficient data structures
+- Consider streaming for large datasets
+- Profile memory usage in tests
+  description:
+  globs:
+  alwaysApply: false
+
+---

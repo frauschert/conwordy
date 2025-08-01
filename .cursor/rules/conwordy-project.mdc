@@ -1,0 +1,127 @@
+# Conwordy Project Rules
+
+## Project Overview
+
+Conwordy is a type-safe unit conversion library written in TypeScript with support for aliases and comprehensive type checking.
+
+## Core Architecture
+
+### Main Files
+
+- [src/index.ts](mdc:src/index.ts) - Main entry point, exports all public APIs
+- [src/convert.ts](mdc:src/convert.ts) - Core conversion logic with fluent API
+- [src/types.ts](mdc:src/types.ts) - TypeScript type definitions
+- [src/aliases.ts](mdc:src/aliases.ts) - Type-safe alias system
+- [cursor.md](mdc:cursor.md) - Development roadmap and task tracking
+
+### Category-Specific Converters
+
+- [src/length.ts](mdc:src/length.ts) - Length unit conversions
+- [src/mass.ts](mdc:src/mass.ts) - Mass unit conversions
+- [src/temperature.ts](mdc:src/temperature.ts) - Temperature conversions
+- [src/time.ts](mdc:src/time.ts) - Time unit conversions
+- [src/velocity.ts](mdc:src/velocity.ts) - Velocity unit conversions
+- [src/rounding.ts](mdc:src/rounding.ts) - Rounding utilities
+
+### Testing
+
+- [src/convert.test.ts](mdc:src/convert.test.ts) - Main conversion tests
+- [src/aliases.test.ts](mdc:src/aliases.test.ts) - Alias system tests
+
+## Development Guidelines
+
+### Type Safety
+
+- All new features must maintain full TypeScript type safety
+- Use literal types and const assertions for aliases
+- Avoid `any` types unless absolutely necessary
+- Leverage conditional types for category-specific logic
+
+### API Design
+
+- Follow the fluent API pattern: `convert(value, category).from(unit).to(unit)`
+- Aliases should work seamlessly with all features
+- Maintain backward compatibility
+- Keep the API simple and intuitive
+
+### Code Style
+
+- Use Prettier for formatting (configured in [.prettierrc](mdc:.prettierrc))
+- Follow the existing naming conventions
+- Add comprehensive JSDoc comments for public APIs
+- Write tests for all new functionality
+
+### Alias System
+
+The alias system is type-safe and uses const assertions:
+
+- Length aliases: m, km, cm, mm, mi, yd, ft, in
+- Mass aliases: g, kg, lb, oz, mg, t
+- Temperature aliases: c, f, k
+- Time aliases: s, min, h, d, w, y
+- Velocity aliases: mps, kph, mph, fps
+
+### Testing Strategy
+
+- Unit tests for each converter function
+- Integration tests for the fluent API
+- Edge case testing for extreme values
+- Error scenario testing
+- Alias resolution testing
+
+## Current Development Focus
+
+Based on [cursor.md](mdc:cursor.md), the current priority is:
+
+1. Unit Validation & Discovery
+2. Bulk Conversions
+3. Better Error Messages
+4. Smart Unit Detection
+
+## File Structure
+
+```
+src/
+├── index.ts          # Main exports
+├── convert.ts        # Core conversion logic
+├── types.ts          # Type definitions
+├── aliases.ts        # Type-safe alias system
+├── length.ts         # Length conversions
+├── mass.ts           # Mass conversions
+├── temperature.ts    # Temperature conversions
+├── time.ts           # Time conversions
+├── velocity.ts       # Velocity conversions
+├── rounding.ts       # Rounding utilities
+├── convert.test.ts   # Main tests
+└── aliases.test.ts   # Alias tests
+```
+
+## Common Patterns
+
+### Adding New Units
+
+1. Add unit to the appropriate category file (e.g., [src/length.ts](mdc:src/length.ts))
+2. Add conversion factor to the const object
+3. Update tests in [src/convert.test.ts](mdc:src/convert.test.ts)
+4. Add aliases if needed in [src/aliases.ts](mdc:src/aliases.ts)
+
+### Adding New Categories
+
+1. Create new category file (e.g., `src/area.ts`)
+2. Add type to [src/types.ts](mdc:src/types.ts)
+3. Update [src/convert.ts](mdc:src/convert.ts) to include new category
+4. Add aliases in [src/aliases.ts](mdc:src/aliases.ts)
+5. Update [src/index.ts](mdc:src/index.ts) exports
+6. Add comprehensive tests
+
+### Error Handling
+
+- Use descriptive error messages
+- Include suggestions for similar units
+- Maintain type safety in error scenarios
+- Test error conditions thoroughly
+  description:
+  globs:
+  alwaysApply: false
+
+---
