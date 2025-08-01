@@ -155,4 +155,36 @@ describe('convert', () => {
     const result = convert(100, 'mass').from('gram').to('gram');
     expect(result).toBe(100);
   });
+
+  describe('alias support', () => {
+    it('should work with length aliases', () => {
+      const result = convert(1000, 'length').from('m').to('km');
+      expect(result).toBe(1);
+    });
+
+    it('should work with mass aliases', () => {
+      const result = convert(1000, 'mass').from('g').to('kg');
+      expect(result).toBe(1);
+    });
+
+    it('should work with temperature aliases', () => {
+      const result = convert(0, 'temperature').from('c').to('f');
+      expect(result).toBeCloseTo(32);
+    });
+
+    it('should work with mixed aliases and actual unit names', () => {
+      const result = convert(1000, 'length').from('m').to('kilometer');
+      expect(result).toBe(1);
+    });
+
+    it('should work with time aliases', () => {
+      const result = convert(120, 'time').from('s').to('min');
+      expect(result).toBe(2);
+    });
+
+    it('should work with velocity aliases', () => {
+      const result = convert(10, 'velocity').from('mps').to('kph');
+      expect(result).toBeCloseTo(36);
+    });
+  });
 });

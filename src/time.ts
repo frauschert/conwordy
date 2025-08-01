@@ -12,6 +12,7 @@ const timeConversionFactors = {
   hour: 3600,
   day: 86400,
   week: 604800,
+  fortnight: 1209600, // 14 days in seconds
   month: 2629800, // Average month in seconds
   year: 31557600, // Average year in seconds
 } satisfies Record<string, number>;
@@ -30,6 +31,7 @@ export interface TimeConversion {
   hour: number;
   day: number;
   week: number;
+  fortnight: number;
   month: number;
   year: number;
 }
