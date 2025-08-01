@@ -1,17 +1,17 @@
-export type RoundingMethod = "round" | "floor" | "ceil";
+export type RoundingMethod = 'round' | 'floor' | 'ceil';
 
 export function applyRounding(
   value: number,
   decimals: number,
-  method: RoundingMethod = "round"
+  method: RoundingMethod = 'round'
 ): number {
   const factor = Math.pow(10, decimals);
   switch (method) {
-    case "floor":
+    case 'floor':
       return Math.floor(value * factor) / factor;
-    case "ceil":
+    case 'ceil':
       return Math.ceil(value * factor) / factor;
-    case "round":
+    case 'round':
     default:
       return Math.round(value * factor) / factor;
   }

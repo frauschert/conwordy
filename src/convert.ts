@@ -1,10 +1,10 @@
-import type { UnitsByCategory, Category } from "./types";
-import { convertLength } from "./length";
-import { convertMass } from "./mass";
-import { convertTemperature } from "./temperature";
-import { applyRounding, RoundingMethod } from "./rounding";
-import { convertTime } from "./time";
-import { convertVelocity } from "./velocity";
+import type { UnitsByCategory, Category } from './types';
+import { convertLength } from './length';
+import { convertMass } from './mass';
+import { convertTemperature } from './temperature';
+import { applyRounding, RoundingMethod } from './rounding';
+import { convertTime } from './time';
+import { convertVelocity } from './velocity';
 
 interface ConvertOptions {
   precision?: number;

@@ -14,9 +14,27 @@ const timeConversionFactors = {
   week: 604800,
   month: 2629800, // Average month in seconds
   year: 31557600, // Average year in seconds
-} as const satisfies Record<string, number>;
+} satisfies Record<string, number>;
 
-export type TimeUnit = keyof typeof timeConversionFactors;
+export interface TimeConversion {
+  millisecond: number;
+  microsecond: number;
+  nanosecond: number;
+  picosecond: number;
+  femtosecond: number;
+  attosecond: number;
+  decisecond: number;
+  centisecond: number;
+  second: number;
+  minute: number;
+  hour: number;
+  day: number;
+  week: number;
+  month: number;
+  year: number;
+}
+
+export type TimeUnit = keyof TimeConversion;
 
 export function convertTime(
   value: number,
