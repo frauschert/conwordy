@@ -1,11 +1,5 @@
 import { convert } from './convert';
 
-declare module './time' {
-  interface TimeConversion {
-    fortnight: number; // Adding fortnight as a valid time unit
-  }
-}
-
 describe('convert', () => {
   describe('length conversions', () => {
     it('should convert meters to kilometers', () => {

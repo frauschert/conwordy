@@ -14,6 +14,11 @@ import {
   resolveAlias,
 } from './aliases';
 
+/**
+ * Options for the conversion
+ * @property precision - The number of decimals to round to
+ * @property rounding - The rounding method to use
+ */
 interface ConvertOptions {
   precision?: number;
   rounding?: RoundingMethod;
@@ -27,6 +32,13 @@ const converters: Record<Category, Function> = {
   velocity: convertVelocity,
 };
 
+/**
+ * Convert a value from one unit to another
+ * @param value - The value to convert
+ * @param category - The category of the value
+ * @param options - The options for the conversion
+ * @returns The converted value
+ */
 export function convert<C extends Category>(
   value: number,
   category: C,

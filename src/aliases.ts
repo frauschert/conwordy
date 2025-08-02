@@ -74,10 +74,20 @@ export type ResolveTimeAlias<T extends TimeUnitOrAlias> = T extends TimeAlias
   ? (typeof TIME_ALIASES)[T]
   : T;
 
+/**
+ * Resolve a velocity alias for a given unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
 export type ResolveVelocityAlias<T extends VelocityUnitOrAlias> =
   T extends VelocityAlias ? (typeof VELOCITY_ALIASES)[T] : T;
 
-// Generic alias resolver
+/**
+ * Resolve an alias for a given category and unit
+ * @param category - The category of the unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
 export type ResolveAlias<C extends Category, T> = C extends 'length'
   ? T extends LengthUnitOrAlias
     ? ResolveLengthAlias<T>
@@ -100,7 +110,11 @@ export type ResolveAlias<C extends Category, T> = C extends 'length'
             : never
           : never;
 
-// Runtime alias resolution functions
+/**
+ * Resolve a length alias for a given unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
 export function resolveLengthAlias<T extends LengthUnitOrAlias>(
   unit: T
 ): ResolveLengthAlias<T> {
@@ -110,6 +124,11 @@ export function resolveLengthAlias<T extends LengthUnitOrAlias>(
   return unit as ResolveLengthAlias<T>;
 }
 
+/**
+ * Resolve a mass alias for a given unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
 export function resolveMassAlias<T extends MassUnitOrAlias>(
   unit: T
 ): ResolveMassAlias<T> {
@@ -119,6 +138,11 @@ export function resolveMassAlias<T extends MassUnitOrAlias>(
   return unit as ResolveMassAlias<T>;
 }
 
+/**
+ * Resolve a temperature alias for a given unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
 export function resolveTemperatureAlias<T extends TemperatureUnitOrAlias>(
   unit: T
 ): ResolveTemperatureAlias<T> {
@@ -130,6 +154,11 @@ export function resolveTemperatureAlias<T extends TemperatureUnitOrAlias>(
   return unit as ResolveTemperatureAlias<T>;
 }
 
+/**
+ * Resolve a time alias for a given unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
 export function resolveTimeAlias<T extends TimeUnitOrAlias>(
   unit: T
 ): ResolveTimeAlias<T> {
@@ -139,6 +168,11 @@ export function resolveTimeAlias<T extends TimeUnitOrAlias>(
   return unit as ResolveTimeAlias<T>;
 }
 
+/**
+ * Resolve a velocity alias for a given unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
 export function resolveVelocityAlias<T extends VelocityUnitOrAlias>(
   unit: T
 ): ResolveVelocityAlias<T> {
@@ -148,7 +182,12 @@ export function resolveVelocityAlias<T extends VelocityUnitOrAlias>(
   return unit as ResolveVelocityAlias<T>;
 }
 
-// Generic resolver
+/**
+ * Resolve an alias for a given category and unit
+ * @param category - The category of the unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
 export function resolveAlias<C extends Category, T>(
   category: C,
   unit: T

@@ -1,5 +1,12 @@
 export type RoundingMethod = 'round' | 'floor' | 'ceil';
 
+/**
+ * Apply rounding to a value
+ * @param value - The value to round
+ * @param decimals - The number of decimals to round to
+ * @param method - The rounding method to use
+ * @returns The rounded value
+ */
 export function applyRounding(
   value: number,
   decimals: number,
