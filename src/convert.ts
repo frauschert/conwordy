@@ -32,6 +32,18 @@ const converters: Record<Category, Function> = {
   velocity: convertVelocity,
 };
 
+type ConvertFrom<C extends Category> = C extends 'length'
+  ? LengthUnitOrAlias
+  : C extends 'mass'
+    ? MassUnitOrAlias
+    : C extends 'temperature'
+      ? TemperatureUnitOrAlias
+      : C extends 'time'
+        ? TimeUnitOrAlias
+        : C extends 'velocity'
+          ? VelocityUnitOrAlias
+          : never;
+
 /**
  * Convert a value from one unit to another
  * @param value - The value to convert
@@ -45,33 +57,9 @@ export function convert<C extends Category>(
   options: ConvertOptions = {}
 ) {
   return {
-    from<
-      From extends C extends 'length'
-        ? LengthUnitOrAlias
-        : C extends 'mass'
-          ? MassUnitOrAlias
-          : C extends 'temperature'
-            ? TemperatureUnitOrAlias
-            : C extends 'time'
-              ? TimeUnitOrAlias
-              : C extends 'velocity'
-                ? VelocityUnitOrAlias
-                : never,
-    >(fromUnit: From) {
+    from<From extends ConvertFrom<C>>(fromUnit: From) {
       return {
-        to<
-          To extends C extends 'length'
-            ? Exclude<LengthUnitOrAlias, From>
-            : C extends 'mass'
-              ? Exclude<MassUnitOrAlias, From>
-              : C extends 'temperature'
-                ? Exclude<TemperatureUnitOrAlias, From>
-                : C extends 'time'
-                  ? Exclude<TimeUnitOrAlias, From>
-                  : C extends 'velocity'
-                    ? Exclude<VelocityUnitOrAlias, From>
-                    : never,
-        >(toUnit: To): number {
+        to<To extends Exclude<ConvertFrom<C>, From>>(toUnit: To): number {
           const converter = converters[category];
           if (!converter) {
             throw new Error(`Unsupported category: ${category}`);
