@@ -4,6 +4,7 @@ import {
   TEMPERATURE_ALIASES,
   TIME_ALIASES,
   VELOCITY_ALIASES,
+  VOLUME_ALIASES,
   resolveAlias,
   resolveLengthAlias,
   resolveMassAlias,
@@ -62,6 +63,16 @@ describe('type-safe aliases', () => {
       expect(VELOCITY_ALIASES.kph).toBe('kilometer_per_hour');
       expect(VELOCITY_ALIASES.mph).toBe('mile_per_hour');
       expect(VELOCITY_ALIASES.fps).toBe('foot_per_second');
+    });
+  });
+
+  describe('VOLUME_ALIASES', () => {
+    it('should contain common volume aliases', () => {
+      expect(VOLUME_ALIASES.l).toBe('liter');
+      expect(VOLUME_ALIASES.ml).toBe('milliliter');
+      expect(VOLUME_ALIASES.gal).toBe('gallon');
+      expect(VOLUME_ALIASES.qt).toBe('quart');
+      expect(VOLUME_ALIASES.pt).toBe('pint');
     });
   });
 

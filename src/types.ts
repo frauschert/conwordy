@@ -3,6 +3,7 @@ import type { MassUnit } from './mass';
 import type { TemperatureUnit } from './temperature';
 import type { TimeUnit } from './time';
 import type { VelocityUnit } from './velocity';
+import type { VolumeUnit } from './volume';
 
 export interface UnitsByCategory {
   length: LengthUnit;
@@ -10,6 +11,7 @@ export interface UnitsByCategory {
   temperature: TemperatureUnit;
   time: TimeUnit;
   velocity: VelocityUnit;
+  volume: VolumeUnit;
 }
 
 export type Category = keyof UnitsByCategory;
@@ -21,6 +23,7 @@ export interface UnitAliases {
   temperature: Record<string, TemperatureUnit>;
   time: Record<string, TimeUnit>;
   velocity: Record<string, VelocityUnit>;
+  volume: Record<string, VolumeUnit>;
 }
 
 // Type for units that can be aliases (actual units + aliases)

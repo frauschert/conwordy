@@ -118,6 +118,23 @@ describe('convert', () => {
     });
   });
 
+  describe('volume conversions', () => {
+    it('should convert liters to milliliters', () => {
+      const result = convert(1, 'volume').from('liter').to('milliliter');
+      expect(result).toBeCloseTo(1000);
+    });
+    it('should convert milliliters to liters', () => {
+      const result = convert(1000, 'volume').from('milliliter').to('liter');
+      expect(result).toBe(1);
+    });
+    it('should convert cubic meters to cubic centimeters', () => {
+      const result = convert(1, 'volume')
+        .from('cubic_meter')
+        .to('cubic_centimeter');
+      expect(result).toBe(1e6);
+    });
+  });
+
   it('applies rounding with precision', () => {
     const result = convert(123.4567, 'length', { precision: 2 })
       .from('meter')
@@ -179,6 +196,11 @@ describe('convert', () => {
     it('should work with velocity aliases', () => {
       const result = convert(10, 'velocity').from('mps').to('kph');
       expect(result).toBeCloseTo(36);
+    });
+
+    it('should work with volume aliases', () => {
+      const result = convert(1000, 'volume').from('ml').to('l');
+      expect(result).toBe(1);
     });
   });
 });

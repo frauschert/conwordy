@@ -43,12 +43,29 @@ export const VELOCITY_ALIASES = {
   fps: 'foot_per_second',
 } as const;
 
+export const VOLUME_ALIASES = {
+  m3: 'cubic_meter',
+  km3: 'cubic_kilometer',
+  cm3: 'cubic_centimeter',
+  mm3: 'cubic_millimeter',
+  in3: 'cubic_inch',
+  ft3: 'cubic_foot',
+  yd3: 'cubic_yard',
+  mi3: 'cubic_mile',
+  l: 'liter',
+  ml: 'milliliter',
+  gal: 'gallon',
+  qt: 'quart',
+  pt: 'pint',
+} as const;
+
 // Type for all possible aliases
 export type LengthAlias = keyof typeof LENGTH_ALIASES;
 export type MassAlias = keyof typeof MASS_ALIASES;
 export type TemperatureAlias = keyof typeof TEMPERATURE_ALIASES;
 export type TimeAlias = keyof typeof TIME_ALIASES;
 export type VelocityAlias = keyof typeof VELOCITY_ALIASES;
+export type VolumeAlias = keyof typeof VOLUME_ALIASES;
 
 // Union types for units that can be aliases
 export type LengthUnitOrAlias = UnitsByCategory['length'] | LengthAlias;
@@ -58,6 +75,7 @@ export type TemperatureUnitOrAlias =
   | TemperatureAlias;
 export type TimeUnitOrAlias = UnitsByCategory['time'] | TimeAlias;
 export type VelocityUnitOrAlias = UnitsByCategory['velocity'] | VelocityAlias;
+export type VolumeUnitOrAlias = UnitsByCategory['volume'] | VolumeAlias;
 
 // Type mapping for resolving aliases
 export type ResolveLengthAlias<T extends LengthUnitOrAlias> =
@@ -81,6 +99,9 @@ export type ResolveTimeAlias<T extends TimeUnitOrAlias> = T extends TimeAlias
  */
 export type ResolveVelocityAlias<T extends VelocityUnitOrAlias> =
   T extends VelocityAlias ? (typeof VELOCITY_ALIASES)[T] : T;
+
+export type ResolveVolumeAlias<T extends VolumeUnitOrAlias> =
+  T extends VolumeAlias ? (typeof VOLUME_ALIASES)[T] : T;
 
 /**
  * Resolve an alias for a given category and unit
@@ -108,7 +129,11 @@ export type ResolveAlias<C extends Category, T> = C extends 'length'
           ? T extends VelocityUnitOrAlias
             ? ResolveVelocityAlias<T>
             : never
-          : never;
+          : C extends 'volume'
+            ? T extends VolumeUnitOrAlias
+              ? ResolveVolumeAlias<T>
+              : never
+            : never;
 
 /**
  * Resolve a length alias for a given unit
@@ -183,6 +208,20 @@ export function resolveVelocityAlias<T extends VelocityUnitOrAlias>(
 }
 
 /**
+ * Resolve a volume alias for a given unit
+ * @param unit - The unit to resolve the alias for
+ * @returns The resolved alias
+ */
+export function resolveVolumeAlias<T extends VolumeUnitOrAlias>(
+  unit: T
+): ResolveVolumeAlias<T> {
+  if (unit in VOLUME_ALIASES) {
+    return VOLUME_ALIASES[unit as VolumeAlias] as ResolveVolumeAlias<T>;
+  }
+  return unit as ResolveVolumeAlias<T>;
+}
+
+/**
  * Resolve an alias for a given category and unit
  * @param category - The category of the unit
  * @param unit - The unit to resolve the alias for
@@ -203,6 +242,8 @@ export function resolveAlias<C extends Category, T>(
       return resolveTimeAlias(unit as any) as ResolveAlias<C, T>;
     case 'velocity':
       return resolveVelocityAlias(unit as any) as ResolveAlias<C, T>;
+    case 'volume':
+      return resolveVolumeAlias(unit as any) as ResolveAlias<C, T>;
     default:
       throw new Error(`Unsupported category: ${category}`);
   }

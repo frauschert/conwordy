@@ -11,8 +11,10 @@ import {
   TemperatureUnitOrAlias,
   TimeUnitOrAlias,
   VelocityUnitOrAlias,
+  VolumeUnitOrAlias,
   resolveAlias,
 } from './aliases';
+import { convertVolume } from './volume';
 
 /**
  * Options for the conversion
@@ -30,6 +32,7 @@ const converters: Record<Category, Function> = {
   temperature: convertTemperature,
   time: convertTime,
   velocity: convertVelocity,
+  volume: convertVolume,
 };
 
 type ConvertFrom<C extends Category> = C extends 'length'
@@ -42,7 +45,9 @@ type ConvertFrom<C extends Category> = C extends 'length'
         ? TimeUnitOrAlias
         : C extends 'velocity'
           ? VelocityUnitOrAlias
-          : never;
+          : C extends 'volume'
+            ? VolumeUnitOrAlias
+            : never;
 
 /**
  * Convert a value from one unit to another
