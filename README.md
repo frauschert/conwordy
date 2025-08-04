@@ -211,6 +211,31 @@ convert(value, category, options)
 - `mile_per_hour`, `foot_per_second`
 - `knot`
 
+## Performance Benchmarks
+
+Run performance benchmarks:
+
+```bash
+npm run benchmark
+```
+
+This will output detailed performance metrics in nanoseconds (ns) for various conversion scenarios:
+
+- Average execution time
+- Minimum execution time
+- Maximum execution time
+
+Example output:
+
+```
+Length conversion:
+  Avg: 123.45 ns
+  Min: 98.76 ns
+  Max: 234.56 ns
+```
+
+Lower numbers indicate better performance.
+
 ## Development
 
 ```bash

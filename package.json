@@ -17,6 +17,7 @@
   "scripts": {
     "test": "jest",
     "format": "prettier --write \"src/**/*.{ts,js,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,js,json}\""
+    "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
+    "benchmark": "ts-node src/benchmarks/convert.bench.ts"
   }
 }

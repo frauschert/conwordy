@@ -14,5 +14,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.suggest.autoImports": true
+  "typescript.suggest.autoImports": true,
+  "chat.promptFiles": true
 }
